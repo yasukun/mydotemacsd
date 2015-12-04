@@ -1,0 +1,70 @@
+(eval-when-compile (require 'cl))
+
+;; proxy
+;; (setq url-proxy-services
+;; 	'(("http" . "{{http_proxy}}")
+;; 	  ("https" . "{{https_proxy}}")))
+
+;;;; thema for emacs 24
+
+(load-theme 'tango)
+
+;;;; package-manager
+
+;; Melpa
+(require 'package)
+(add-to-list 'package-archives '("melpa"        . "http://melpa.org/packages/")  t)
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/")  t)
+(add-to-list 'package-archives '("marmalade"    . "http://marmalade-repo.org/packages/") t)
+(package-initialize)
+
+(defvar my-package-list
+  '(helm
+    helm-ag
+    helm-descbinds
+    auto-complete
+    open-junk-file
+    slime
+    ac-slime
+    ac-cider
+    cider
+    twittering-mode
+    paredit
+    lispxmp
+    ac-haskell-process
+    haskell-mode
+    shm
+    multiple-cursors
+    hackernews
+    google-translate
+    popwin
+    hackernews
+    hl-line+
+    yasnippet
+    coffee-mode
+    tree-mode
+    markdown-mode
+    web-mode
+    inf-ruby
+    flycheck
+    ghc
+    nodejs-repl))
+
+(let ((not-installed
+       (loop for package in my-package-list
+             when (not (package-installed-p package))
+             collect package)))
+  (when not-installed
+    (package-refresh-contents)
+    (dolist (package not-installed)
+      (package-install package))))
+
+(let ((default-directory (expand-file-name "{{path_to_site_lisp}}")))
+  (add-to-list 'load-path default-directory)
+  (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+      (normal-top-level-add-subdirs-to-load-path)))
+
+(require 'init-loader)
+(setq init-loader-show-log-after-init nil)
+(init-loader-load "{{path_to_inits}}")
+(put 'upcase-region 'disabled nil)
