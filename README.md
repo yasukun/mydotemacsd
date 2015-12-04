@@ -1,0 +1,2 @@
+# mydotemacsd
+my emacs setting
