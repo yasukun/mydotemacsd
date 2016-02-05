@@ -36,7 +36,7 @@
 ;; (setq frame-title-format (format "%%f - Emacs@%s" (system-name)))
 
 ;; ;;; 対応する括弧を光らせる。
-(show-paren-mode t)
+;; (show-paren-mode t)
 
 (setq ring-bell-function 'ignore)
 
